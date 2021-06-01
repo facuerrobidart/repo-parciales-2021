@@ -66,7 +66,7 @@ void asigna(TLista L,TCola *C){ ///PUNTO 1)a)
             sacaC(C,&saca);
             noAtendidos++;
         } ///ini no cambia porque si no coloque mi punto de partida para la busqueda es el mismo
-        //en el else habria que poner colocado = 0 porque sino itera infinitamente, debido a la condicion del while
+        //en el else habria que poner colocado = 1 porque sino itera infinitamente, debido a la condicion del while
     }
 
     if (noAtendidos)
