@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1621006655 source:c:\users\gamer\documents\progra 2\2021\practica parciales\errobidart facundo parcial\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"colacircular.h"
+
+1621006645 c:\users\gamer\documents\progra 2\2021\practica parciales\errobidart facundo parcial\colacircular.h
+
+1621006815 source:c:\users\gamer\documents\progra 2\2021\practica parciales\errobidart facundo parcial\colacircular.c
+	"colacircular.h"
+	<stdio.h>
+	<stdlib.h>
+
