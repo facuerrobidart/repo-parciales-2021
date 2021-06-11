@@ -6,6 +6,17 @@ typedef struct nodo{
     struct nodo *izq,*der;
 }nodo;
 typedef nodo *TArbol;
+typedef struct nodoL{
+    int etiqueta; //indice en el vector de cabeceras
+    int costo;
+    int arbol; //booleano, inidica si la arista pertenece al arbol generador
+    struct nodoL *sig;
+}nodoL;
+typedef nodoL * TLista;
+typedef struct cabecera{
+    int nombre;
+    TLista adyacentes;
+}cabecera;
 int main(){
 
 
@@ -47,7 +58,7 @@ void arreglo(int matriz[][max],int grados[],int i, int j,int orden){ //i,j entra
             arreglo(matriz,grados,i+1,0,orden); //comienzo la fila siguiente
         else  //si no
             arreglo(matriz,grados,i,j+1,orden); //me muevo hacia la derecha
-    }
+    } 
 }
 
 /*3) Dado un árbol N-ario determinar cuántas nodos no hoja cumplen que su valor
@@ -71,4 +82,45 @@ int valorIgualGrado(TNArio A,TPosicion p){ //p entra con raiz(A)
             return 0;
     }else //arbol vacio
         return 0;
+}
+
+/*4) Se tiene una lista de adyacencia en la que en cada nodo se ha marcado con un
+1 si la lista pertenece al árbol abarcado de costo mínimo.
+a - Obtener el costo del árbol abarcador de costo mínimo.
+b - Qué grado tiene el vértice Vi en el árbol abarcador de costo mínimo?
+c - Qué longitud tiene el camino de Vi a Vj en el árbol abarcador de costo mínimo?*/
+
+int costoArbol(cabecera listaAdy[],int orden){
+    TLista aux; int sum=0;
+    for(int i=0;i<orden;i++){ //recorro toda la lista
+        aux=listaAdy[i].adyacentes; //me paro en la cabecera de la lista
+        while (aux)
+            if (aux->arbol) //si la arista pertenece al arbol
+                sum+=aux->costo; //sumo el costo
+    }
+    return sum; 
+}
+
+int gradoVertice(cabecera listaAdy[],int orden, int vertice){
+    TLista aux; int cont=0;
+
+    for(int i=0;i<orden;i++){
+        aux=listaAdy[i].adyacentes;
+        while (aux)
+            if ((aux->arbol) && (i==vertice-1 ||aux->etiqueta==vertice-1))
+                cont++;
+    }
+    return cont;
+}
+
+int esta(int vector[],int orden,int vertice){
+    int i=0;
+
+    while (i<orden && vector[i]!=vertice)
+        i++;
+
+    return i<orden;
+}
+int longitud(cabecera listaAdy[],int orden,int origen,int destino){
+    
 }
