@@ -43,13 +43,16 @@ int mitadNegativos(TNArio A, TPosicion p, int G){ //A, raiz(A),G
     int gradoLocal=0,negativos=0,flag=0;TPosicion aux;
     if (!nulo(p)){
         aux = hijoMasIzq(p,A);
-        while (!nulo(aux) && !mitadNegativos(A,aux,G)){
+        while (!nulo(aux)){
             gradoLocal++;
             if (info(aux,A)<0)
                 negativos++;
             aux=hnoDer(aux,A);
         }
-        return (!nulo(aux)||(gradoLocal==G && negativos>gradoLocal/2));
+        if (gradoLocal==G && negativos>(float)gradoLocal/2)
+            return 1;
+        else
+            return mitadNegativos(A,hijoMasIzq(p,A),G)||mitadNegativos(A,hnoDer(p,A),G);
     }else
         return 0;
 }
