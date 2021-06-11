@@ -57,7 +57,7 @@ int mitadNegativos(TNArio A, TPosicion p, int G){ //A, raiz(A),G
 en una matriz de adyacencia, hallar el porcentaje de vertices que teniendo
 bucle poseen el grado máximo de salida (RECORRIDO RECURSIVO)*/
 void maxGradoBucle(int matriz[][max],int i,int j,int orden,int *gMax,int gAct,int *bucles){ //i y j entran con orden-1, gMax es una variable inicializada en 0, gAct entra con 0
-    if (i>0) //mientras no me salga por arriba de la matriz
+    if (i>=0) //mientras no me salga por arriba de la matriz
         if (j!=0){ // si no estoy en el principio de la fila
             if (matriz[i][j])
                 maxGradoBucle(matriz,i,j-1,orden,gMax,gAct+1,bucles);
@@ -71,6 +71,9 @@ void maxGradoBucle(int matriz[][max],int i,int j,int orden,int *gMax,int gAct,in
                 else
                     (*bucles)=0;
             }else{
+                if ((matriz[i][j] && gAct+1==*gMax)||(gAct==*gMax)) //si el grado del vertice i == grMax 
+                    if (matriz[i][i]) //esto se podria juntar en el if de arriba pero quita legibilidad
+                        (*bucles++); //cuento el bucle
                 if (gAct>*gMax){//nuevo maximo con matriz[i][0]==0
                     (*gMax)=gAct; //gMax es el acumulado
                     if (matriz[i][i])
@@ -78,9 +81,6 @@ void maxGradoBucle(int matriz[][max],int i,int j,int orden,int *gMax,int gAct,in
                     else
                         (*bucles)=0;
                 }
-                if ((matriz[i][j] && gAct+1==*gMax)||(gAct==*gMax)) //si el grado del vertice i == grMax 
-                    if (matriz[i][i]) //esto se podria juntar en el if de arriba pero quita legibilidad
-                        (*bucles++); //cuento el bucle
             }
             maxGradoBucle(matriz,i-1,orden-1,orden,gMax,gAct,bucles); //comienzo con la fila siguiente
         }
