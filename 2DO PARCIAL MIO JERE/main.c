@@ -39,19 +39,16 @@ int alMenosCero(TNArio A,TPosicion p,int K){ //p entra con raiz(A)
 
     if (!nulo(p)){
         aux=hijoMasIzq(p,A);
-        while (!nulo(aux) && alMenosCero(A,aux,K)){
+        while (!nulo(aux) && gradoLocal<=K){
             gradoLocal++;
             if (info(aux,A)==0)
                 cero++;
             aux = hnoDer(aux,A);
         }
-        if (!nulo(aux)) //si no recorrí todos los hijos significa que alguno no cumple
-            return 0;
+        if (gradoLocal==K && cero)
+            return 1;
         else
-            if ((gradoLocal==K && cero) || gradoLocal!=K) //
-                return 1;
-            else
-                return 0;
+            return alMenosCero(A,hijoMasIzq(p,A),K)||alMenosCero(A,hnoDer(p,A),K);
     }else
         return 1;
 }
@@ -61,5 +58,5 @@ hallar cuántos nodos que tienen bucle tienen grado de entrada par.*/
 
 void grEntradaPar(int matriz[][max],int orden,int i,int j,int *cumple){ //i,j entran en orden-1, cumple variable inicializada en cero
     if (j>=0)
-        
+
 }
