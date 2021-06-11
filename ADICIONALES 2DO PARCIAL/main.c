@@ -13,10 +13,6 @@ typedef struct nodoL{
     struct nodoL *sig;
 }nodoL;
 typedef nodoL * TLista;
-typedef struct cabecera{
-    int nombre;
-    TLista adyacentes;
-}cabecera;
 int main(){
 
 
@@ -90,10 +86,10 @@ a - Obtener el costo del árbol abarcador de costo mínimo.
 b - Qué grado tiene el vértice Vi en el árbol abarcador de costo mínimo?
 c - Qué longitud tiene el camino de Vi a Vj en el árbol abarcador de costo mínimo?*/
 
-int costoArbol(cabecera listaAdy[],int orden){
+int costoArbol(TLista listaAdy[],int orden){
     TLista aux; int sum=0;
     for(int i=0;i<orden;i++){ //recorro toda la lista
-        aux=listaAdy[i].adyacentes; //me paro en la cabecera de la lista
+        aux=listaAdy[i]->sig; //me paro en la cabecera de la lista
         while (aux)
             if (aux->arbol) //si la arista pertenece al arbol
                 sum+=aux->costo; //sumo el costo
@@ -101,11 +97,11 @@ int costoArbol(cabecera listaAdy[],int orden){
     return sum; 
 }
 
-int gradoVertice(cabecera listaAdy[],int orden, int vertice){
+int gradoVertice(TLista listaAdy[],int orden, int vertice){
     TLista aux; int cont=0;
 
     for(int i=0;i<orden;i++){
-        aux=listaAdy[i].adyacentes;
+        aux=listaAdy[i]->sig;
         while (aux)
             if ((aux->arbol) && (i==vertice-1 ||aux->etiqueta==vertice-1))
                 cont++;
@@ -121,6 +117,6 @@ int esta(int vector[],int orden,int vertice){
 
     return i<orden;
 }
-int longitud(cabecera listaAdy[],int orden,int origen,int destino){
+int longitud(TLista listaAdy[],int orden,int origen,int destino){
     
 }
