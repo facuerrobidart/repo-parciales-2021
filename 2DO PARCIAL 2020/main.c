@@ -43,7 +43,7 @@ int mitadNegativos(TNArio A, TPosicion p, int G){ //A, raiz(A),G
     int gradoLocal=0,negativos=0,flag=0;TPosicion aux;
     if (!nulo(p)){
         aux = hijoMasIzq(p,A);
-        while (!nulo(aux)){
+        while (!nulo(aux) && gradoLocal<=G){
             gradoLocal++;
             if (info(aux,A)<0)
                 negativos++;
