@@ -56,7 +56,16 @@ int alMenosCero(TNArio A,TPosicion p,int K){ //p entra con raiz(A)
 /*3- Dado un digrafo de N vértices con aristas ponderadas almacenado en una matriz de adyacencia, 
 hallar cuántos nodos que tienen bucle tienen grado de entrada par.*/
 
-void grEntradaPar(int matriz[][max],int orden,int i,int j,int *cumple){ //i,j entran en orden-1, cumple variable inicializada en cero
-    if (j>=0)
-
+void grEntradaPar(int matriz[][max],int orden,int i,int j,int gAct,int *cumple){ //i,j entran en orden-1,gAct entra en 0, cumple variable inicializada en cero
+    if (j>=0) //mientras no me salga por la izquierda
+        if (i>=0){ //mientras no termine la columna
+            if (matriz[i][j])
+                grEntradaPar(matriz,orden,i-1,j,gAct+1,cumple);
+            else
+                grEntradaPar(matriz,orden,i-1,j,gAct,cumple);
+        }else{//i==-1 fin de columna
+            if (matriz[j][j] && gAct%2==0)
+                (*cumple)++;
+            grEntradaPar(matriz,orden,orden-1,j-1,0,cumple); //comienzo la columna de la izquierda
+        }
 }
