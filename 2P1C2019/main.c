@@ -21,7 +21,7 @@ void claveMaxGr2(TArbol A,int nAct, int *nMax,int *clave){ //nAct entra con 1, n
             *clave=A->dato;
         }
         claveMaxGr2(A->der,nAct+1,nMax,clave);
-        claveMaxGr2(A->izq,nAct,nMax,clave);
+        claveMaxGr2(A->izq,nAct+1,nMax,clave);
     }
 }
 
