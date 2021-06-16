@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#define max 25
 typedef struct nodo{
     int dato;
     struct nodo *izq,*der;
@@ -42,4 +42,42 @@ int cuantosTenianK(TArbol A,int K){
         return cuantosK;
     }else
         return 0;
+}
+
+/*EJ2 dado un arbol N-ario de caracteres, determinar si en todo los niveles hay al menos una vocal*/
+
+void todosLosNiveles(TNArio A,TPosición p,int nAct, int tieneVocal[],int *n){
+    if (!nulo(p)){
+        if (info(p,A)=='a'||info(p,A)=='e'||info(p,A)=='e'||info(p,A)=='i'||info(p,A)=='u')
+            tieneVocal[nAct-1]++;
+        if (nAct>*n)
+            (*n) = nAct;
+        
+        todosLosNiveles(A,hnoDer(p,A),nAct,tieneVocal,n);
+        todosLosNiveles(A,hijoIzq(p,A),nAct+1,tieneVocal,n);
+    }
+}
+
+int hayVocales(int tieneVocal[],int n){
+    int i=0;
+
+    while (i<n && tieneVocal[i])
+        i++;
+
+    return i==n;
+}
+
+/*EJ3 dado un digrafo con aristas ponderadas almacenado en una matriz de adyacencia, realizar una única
+función recursiva que obtenga el vértice con mayor costo de entrada promedio (NO SE PERMITEN CICLOS)*/
+
+void maxGradoProm(int mAdy[][max],int i,int j,int orden,int sum,float *promMax){ //i,j entran con orden-1, sum con 0, promMax inicializado en 0
+    if (j>=0){
+        if (i>=0){
+            maxGradoProm(mAdy,i-1,j,orden,sum+mAdy[i][j],promMax);
+        }else{ //i==-1 fin de linea
+            if ((float)sum/orden>*promMax)
+                (*promMax)=(float)sum/orden;
+            maxGradoProm(mAdy,orden-1,j-1,orden,0,promMax);
+        }
+    }
 }
